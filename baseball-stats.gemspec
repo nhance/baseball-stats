@@ -9,13 +9,17 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.files       = `git ls-files`.split("\n")
   s.test_files  = `git ls-files -- spec/*`.split("\n")
-  s.executables = `git ls-files -- bin/*`.map { |f| File.basename(f) }
+  s.executables = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.bindir      = 'bin'
   s.summary     = "Baseball statistics tool"
 
   s.require_paths << 'lib'
 
   s.add_development_dependency('bundler')
+  s.add_development_dependency('rake')
+  s.add_development_dependency('rspec')
 
   s.add_dependency('gli')
+  s.add_dependency('activerecord', '~> 4.1.6')
+  s.add_dependency('sqlite3')
 end

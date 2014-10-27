@@ -11,20 +11,27 @@ end
 
 include GLI::App
 
-program_desc 'Describe your application here'
+program_desc 'Provides analysis of baseball stats'
 
 version BaseballStats::VERSION
 
-subcommand_option_handling :normal
-arguments :strict
+# subcommand_option_handling :normal
+# arguments :strict
 
-desc 'Describe some switch here'
-switch [:s,:switch]
-
-desc 'Describe some flag here'
-default_value 'the default'
-arg_name 'The name of the argument'
-flag [:f,:flagname]
+## EXAMPLES:
+#
+# SWITCHES - These are toggles
+# desc 'Describe some switch here'
+# switch [:s,:switch]
+#
+# FLAGS - These take an argument
+# desc 'Describe some flag here'
+# default_value 'the default'
+# arg_name 'The name of the argument'
+# flag [:f,:flagname]
+#
+# Any `command` block can have its own switches and flags.
+# Switches and flags defined outside any command block are global
 
 pre do |global,command,options,args|
   # Pre logic here
@@ -32,7 +39,8 @@ pre do |global,command,options,args|
   # chosen command
   # Use skips_pre before a command to skip this block
   # on that command only
-  true
+
+  $baseball_stats = BaseballStats::Application.new
 end
 
 post do |global,command,options,args|
