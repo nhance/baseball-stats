@@ -49,7 +49,7 @@ Column header key:
 - yearID: Year of recorded data
 - league
 - teamID
-- G:
+- G: _(description unavailable)_
 - AB: at-bats
 - H: hits
 - 2B: doubles
