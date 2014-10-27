@@ -3,6 +3,7 @@ require 'baseball-stats/connection'
 
 Dir[File.join(__dir__, 'models/*.rb')].each { |f| require f }
 
-module BaseballStats
+require 'baseball-stats/application'
 
+module BaseballStats
 end
