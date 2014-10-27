@@ -1,6 +1,10 @@
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+#!/usr/bin/env rake
+require 'rake'
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
 
-require File.expand_path('../config/application', __FILE__)
+Dir[File.join(File.dirname(__FILE__),'lib/tasks/*.rake')].each { |f| load f }
 
-Rails.application.load_tasks
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => [:spec]
