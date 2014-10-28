@@ -1,4 +1,4 @@
-baseball-stats: A sample rails app
+baseball-stats: A sample ruby gem
 ==============
 
 **Overview:**  Write an application
@@ -49,13 +49,16 @@ Column header key:
 - yearID: Year of recorded data
 - league
 - teamID
-- G:
+- G: _(description unavailable)_
 - AB: at-bats
+- R: _(description unavailable)_
 - H: hits
 - 2B: doubles
 - 3B: triples
 - HR: home runs
 - RBI: runs batted in
+- SB: _(description unavailable)_
+- CS: _(description unavailable)_
 
 **data/Master-small.csv** – Contains the demographic data for all baseball
 players in history through 2012.

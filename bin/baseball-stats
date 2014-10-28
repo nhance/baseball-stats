@@ -33,6 +33,9 @@ version BaseballStats::VERSION
 # Any `command` block can have its own switches and flags.
 # Switches and flags defined outside any command block are global
 
+desc 'Specify the environment to load'
+flag [:e, :environment], default_value: 'development'
+
 pre do |global,command,options,args|
   # Pre logic here
   # Return true to proceed; false to abort and not call the
@@ -40,7 +43,7 @@ pre do |global,command,options,args|
   # Use skips_pre before a command to skip this block
   # on that command only
 
-  $baseball_stats = BaseballStats::Application.new
+  $baseball_stats = BaseballStats::Application.new(global_options[:environment])
 end
 
 post do |global,command,options,args|
