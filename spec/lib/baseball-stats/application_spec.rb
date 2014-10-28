@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'baseball-stats/errors'
+require 'baseball-stats/models/player'
 require 'baseball-stats/application'
 
 describe BaseballStats::Application do
@@ -25,8 +27,23 @@ describe BaseballStats::Application do
   end
 
   describe ".load('type', 'path/to/filename.csv')" do
-    it "throws an error if you specify a type other than 'demographic' or 'batting'"
-    it "calls Player.load_batting_stats(filename) if you specify 'batting'"
-    it "calls Player.load_demographics(filename) if you specify 'demographic'"
+    let(:application) { BaseballStats::Application.new('test') }
+    let(:filename)    { File.join(__dir__, '../../data/Master-small.csv') }
+
+    it "throws a BaseballStats::Player::InvalidTypeError if you specify a type other than 'demographic' or 'batting'" do
+      expect { application.load('letskickasstogether', filename) }.to raise_error(BaseballStats::InvalidTypeError)
+    end
+
+    it "calls Player.load_batting_stats(filename) if you specify 'batting'" do
+      expect(BaseballStats::Player).to receive(:load_batting_stats).with(filename)
+
+      application.load('batting', filename)
+    end
+
+    it "calls Player.load_demographics(filename) if you specify 'demographic'" do
+      expect(BaseballStats::Player).to receive(:load_demographics).with(filename)
+
+      application.load('demographic', filename)
+    end
   end
 end

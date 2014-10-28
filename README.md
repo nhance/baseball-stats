@@ -1,4 +1,4 @@
-baseball-stats: A sample rails app
+baseball-stats: A sample ruby gem
 ==============
 
 **Overview:**  Write an application

@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+$LOAD_PATH << File.expand_path(File.join(__dir__, "../lib"))
+puts $LOAD_PATH.inspect
+require 'baseball-stats'
+require_relative '../spec/support/database_helpers'
+
+include(DatabaseHelpers)
+
+migrate(ARGV[0] || 'development')
