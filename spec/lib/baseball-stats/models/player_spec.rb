@@ -4,8 +4,6 @@ require 'tempfile'
 
 describe BaseballStats::Player do
   it { should have_db_column(:player_uid) }
-  it { should have_db_column(:league) }
-  it { should have_db_column(:team) }
   it { should have_db_column(:birth_year) }
   it { should have_db_column(:first_name) }
   it { should have_db_column(:last_name) }

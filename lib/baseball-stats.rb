@@ -1,3 +1,6 @@
+require 'active_record'
+require 'squeel'
+
 require 'baseball-stats/version.rb' unless defined?(BaseballStats::VERSION)
 require 'baseball-stats/connection'
 

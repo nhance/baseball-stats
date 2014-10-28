@@ -4,25 +4,25 @@ require 'active_record'
 
 namespace :db do
   task :environment do
-    DATABASE_ENV = ENV['DATABASE_ENV'] || 'development'
+    ENVIRONMENT = ENV['ENVIRONMENT'] || 'development'
     MIGRATIONS_DIR = ENV['MIGRATIONS_DIR'] || 'db/migrate'
     APP_ROOT = File.join(__dir__, '../..')
   end
 
   task :configuration => :environment do
-    @config = YAML.load_file('config/database.yml')[DATABASE_ENV]
+    @config = YAML.load_file('config/database.yml')[ENVIRONMENT]
   end
 
   task :configure_connection => :configuration do
     ActiveRecord::Base.establish_connection @config
     ActiveRecord::Base.logger = Logger.new STDOUT if @config['logger']
-    puts "Connected to #{DATABASE_ENV} environment"
+    puts "Connected to #{ENVIRONMENT} environment"
   end
 
   desc 'Resets the database'
   task :reset => [:drop, :migrate]
 
-  desc 'Drops the database for the current DATABASE_ENV'
+  desc 'Drops the database for the current ENVIRONMENT'
   task :drop => :configure_connection do
     db_file = File.join(APP_ROOT, @config['database'])
     File.delete(db_file) if File.exists?(db_file)
