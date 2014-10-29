@@ -121,5 +121,5 @@ namespace :demo do
   end
 
   desc "Performs a full demo"
-  task :demo => [:load_everything, :most_improved_batting_average, :oakland_2007_sluggers, :triple_crown_winners]
+  task :demo => [:most_improved_batting_average, :oakland_2007_sluggers, :triple_crown_winners]
 end

@@ -2,11 +2,16 @@ baseball-stats: A sample ruby gem
 ==============
 
 # Demo instructions
+Requires Ruby 2.1.3 or greater
+
 1. `git clone git@github.com:nhance/baseball-stats.git`
 2. `cd baseball-stats`
 3. `bundle`
 4. `bundle exec rake db:reset`
-4. `bundle exec rake demo:demo`
+5. `bundle exec rake demo:load_everything` _Data issues are expected.
+   Does not impact test results. Wasn't worth chasing, appears to be a
+CSV format issue._
+6. `bundle exec rake demo:demo`
 
 **Overview:**  Write an application
 that will be used to provide information about baseball player

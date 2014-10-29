@@ -5,7 +5,7 @@ module BaseballStats
     has_many :batting_records
 
     def self.load_batting_stats(filename)
-      CSV.foreach(filename, row_sep: "\r", headers: true, header_converters: [:symbol]) do |row|
+      CSV.foreach(filename, headers: true, header_converters: [:symbol]) do |row|
         player = Player.where(player_uid: row[:playerid]).first
         player = Player.create(player_uid: row[:playerid]) if player.nil?
 
