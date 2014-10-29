@@ -11,19 +11,19 @@ module BaseballStats
 
         if !player.nil?
           player.batting_records.create(
-            year:       row[:yearid],
+            year:       row[:yearid].to_i,
             league:     row[:league],
             team:       row[:teamid],
-            g:          row[:g],
-            at_bats:    row[:ab],
-            r:          row[:r],
-            hits:       row[:h],
-            doubles:    row[:"2b"],
-            triples:    row[:"3b"],
-            home_runs:  row[:hr],
-            rbis:       row[:rbi],
-            sb:         row[:sb],
-            cs:         row[:cs])
+            g:          row[:g].to_i,
+            at_bats:    row[:ab].to_i,
+            r:          row[:r].to_i,
+            hits:       row[:h].to_i,
+            doubles:    row[:"2b"].to_i,
+            triples:    row[:"3b"].to_i,
+            home_runs:  row[:hr].to_i,
+            rbis:       row[:rbi].to_i,
+            sb:         row[:sb].to_i,
+            cs:         row[:cs].to_i)
           print "+"
         else
           print "F"
@@ -36,11 +36,27 @@ module BaseballStats
         player = Player.where(player_uid: row[:playerid]).first
         player = Player.create(player_uid: row[:playerid]) if player.nil?
 
-        if player.update_attributes(birth_year: row[:birthyear], first_name: row[:namefirst], last_name: row[:namelast])
+        if player.update_attributes(birth_year: row[:birthyear].to_i, first_name: row[:namefirst], last_name: row[:namelast])
           print '+'
         else
           print 'F'
         end
+      end
+    end
+
+    def self.triple_crown_winner(league:, year:)
+      scope = { year: year, league: league }
+
+      most_rbis      = BattingRecord.where(scope).maximum(:rbis)
+      most_home_runs = BattingRecord.where(scope).maximum(:home_runs)
+
+      records_qualified_for_batting_title = BattingRecord.where(scope).where { at_bats >= 400 }
+      batting_title = records_qualified_for_batting_title.sort_by { |record| record.batting_average }.last
+
+      if batting_title && batting_title.rbis == most_rbis && batting_title.home_runs == most_home_runs
+        batting_title.player
+      else
+        nil
       end
     end
 

@@ -31,10 +31,9 @@ namespace :demo do
 
   desc "Shows most improved batting average from 2009 to 2010 for players with greater than 200 at-bats (Displays COUNT (default 25) best)"
   task :most_improved_batting_average => :application do
-    ## Hey, how come this isn't tested??
+    ## Hey, how come this isn't tested?
     #
-    # We're looking at a view of the data in a one-off situation. I've
-    # demonstrated TDD on all of the components, but for the very
+    # I've shown TDD on all of the components, but for this very
     # specific manipulation of the data, I am handling this like it's
     # migration, or "once and done" code that won't need to be extended,
     # so I didn't write tests for this.
@@ -47,8 +46,11 @@ namespace :demo do
     # and tests should be built.
     #
     # I'm operating under the assumption that the requirements are to
-    # see my ability in performing math or simple operations. Work here
+    # see my ability in performing math on simple operations. Work here
     # has been optimized for readability, not performance.
+    #
+    # Performance for ~300 records is not worth optimizing, as it's more
+    # important to be able to read/change this easily.
 
     COUNT = ENV['COUNT'] || 25
 
@@ -88,4 +90,36 @@ namespace :demo do
       rank += 1
     end
   end
+
+  desc "Displays the slugging percentage for all players on Oakland A's (team: OAK) in 2007"
+  task :oakland_2007_sluggers => :application do
+    records = BaseballStats::BattingRecord.where { (year == 2007) & (team == 'OAK') & (at_bats > 0) }.all
+
+    records = records.sort_by { |batting_record| batting_record.slugging_percentage }
+    records.reverse!
+
+    puts "Slugging percentage for all players on Oakland A's in 2007 (with at least one at-bat):"
+    records.each_with_index do |batting_record, rank|
+      puts "#{rank + 1}. #{batting_record.player} [#{batting_record.slugging_percentage}]"
+    end
+  end
+
+  desc "Displays the triple crown winner for the 2011 and 2012 for each league"
+  task :triple_crown_winners => :application do
+    display_triple_crown_winner = ->(league, year) do
+      winner = BaseballStats::Player.triple_crown_winner(league: league, year: year)
+      winner = "(No winner)" if winner.nil?
+
+      puts "Triple Crown winner for #{league} in #{year}: #{winner}"
+    end
+
+    display_triple_crown_winner.call('AL', 2011)
+    display_triple_crown_winner.call('NL', 2011)
+
+    display_triple_crown_winner.call('AL', 2012)
+    display_triple_crown_winner.call('NL', 2012)
+  end
+
+  desc "Performs a full demo"
+  task :demo => [:load_everything, :most_improved_batting_average, :oakland_2007_sluggers, :triple_crown_winners]
 end
