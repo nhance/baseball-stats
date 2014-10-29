@@ -9,8 +9,7 @@ Requires Ruby 2.1.3 or greater
 3. `bundle`
 4. `bundle exec rake db:reset`
 5. `bundle exec rake demo:load_everything` _Data issues are expected.
-   Does not impact test results. Wasn't worth chasing, appears to be a
-CSV format issue._
+   Does not impact test results. Ran out of time to debug fully._
 6. `bundle exec rake demo:demo`
 
 **Overview:**  Write an application
