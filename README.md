@@ -12,6 +12,8 @@ Requires Ruby 2.1.3 or greater
    Does not impact test results. Ran out of time to debug fully._
 6. `bundle exec rake demo:demo`
 
+# Assignment detail
+
 **Overview:**  Write an application
 that will be used to provide information about baseball player
 statistics. This application
