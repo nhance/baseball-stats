@@ -1,6 +1,12 @@
 baseball-stats: A sample ruby gem
 ==============
 
+# Demo instructions
+1. `git clone git@github.com:nhance/baseball-stats.git`
+2. `cd baseball-stats`
+3. `bundle`
+4. `bundle exec rake demo:demo`
+
 **Overview:**  Write an application
 that will be used to provide information about baseball player
 statistics. This application

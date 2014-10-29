@@ -5,6 +5,8 @@ class CreateBattingRecord < ActiveRecord::Migration
     create_table :batting_records do |t|
       t.integer :player_id
       t.integer :year
+      t.string  :league
+      t.string  :team
       t.integer :g
       t.integer :at_bats
       t.integer :r
