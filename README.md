@@ -12,6 +12,10 @@ Requires Ruby 2.1.3 or greater
    Does not impact test results. Ran out of time to debug fully._
 6. `bundle exec rake demo:demo`
 
+# Running tests
+1. `bundle exec rake db:migrate ENVIRONMENT=test`
+2. `rake`
+
 # Assignment detail
 
 **Overview:**  Write an application
