@@ -52,7 +52,7 @@ namespace :demo do
     # Performance for ~300 records is not worth optimizing, as it's more
     # important to be able to read/change this easily.
 
-    COUNT = ENV['COUNT'] || 25
+    COUNT = ENV['COUNT'].to_i > 0 ? ENV['COUNT'].to_i : 25
 
     averages = {} # { playerid: [batting_average_2010, batting_average_2009] }
 
@@ -86,7 +86,7 @@ namespace :demo do
     rank = 1
     player_deltas.take(COUNT).each do |player_id, delta|
       player = BaseballStats::Player.find(player_id)
-      puts "#{rank}. [#{player.player_uid}] #{player}: (2009, #{averages[player_id][1] || 0}) -> (2010, #{averages[player_id][0] || 0})"
+      puts "#{rank}. #{player}: (2009, #{averages[player_id][1] || 0}) -> (2010, #{averages[player_id][0] || 0})"
       rank += 1
     end
   end
